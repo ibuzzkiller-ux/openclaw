@@ -65,7 +65,7 @@ COPY --from=ext-deps /out/ ./extensions/
 
 # Reduce OOM risk on low-memory hosts during dependency installation.
 # Мы просто убрали id=openclaw-pnpm-store, остальное оставили как есть
-RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked \
+RUN --mount=type=cache,id=${APP_ID}-pnpm-store,target=/root/.local/share/pnpm/store,sharing=locked \
     NODE_OPTIONS=--max-old-space-size=2048 pnpm install --frozen-lockfile
 
 COPY . .
